@@ -1,0 +1,28 @@
+name: 'Arbiter Prompt Linter'
+description: 'Detects logical conflicts, redundancies, and interference patterns in LLM system prompts.'
+branding:
+  icon: 'shield'
+  color: 'purple'
+
+inputs:
+  directory:
+    description: 'Directory containing the system prompt markdown files'
+    required: true
+    default: '.'
+  gemini_api_key:
+    description: 'Gemini API Key for the Arbiter auditor'
+    required: true
+  model:
+    description: 'Gemini model to use'
+    required: false
+    default: 'gemini-2.5-flash'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.directory }}
+    - '--key'
+    - ${{ inputs.gemini_api_key }}
+    - '--model'
+    - ${{ inputs.model }}
