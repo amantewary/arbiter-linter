@@ -1,0 +1,20 @@
+name: Self-Lint Prompts
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Arbiter Linter
+        uses: ./ # Points to the action in this repo
+        with:
+          directory: '.' # Scan the root (will pick up README.md etc)
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
